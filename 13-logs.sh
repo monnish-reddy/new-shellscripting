@@ -8,14 +8,14 @@ SCRIPT_NAME=$(echo $0|cut -d "." -f1)
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
 
 mkdir -p $LOGS_FOLDER
-echo "Script started at : $(date)" $>>$LOG_FILE
+echo "Script started at : $(date)"  |tee -a $LOG_FILE
 
 if [ $USER -ne 0 ]
 then
-    echo -e "$R ERROR:: please run  the script with root access $N"$>>$LOG_FILE
+    echo -e "$R ERROR:: please run  the script with root access $N"| tee -a $LOG_FILE
     exit 1
 else
-    echo " you are runnig with root access"$>>$LOG_FILE
+    echo " you are runnig with root access"| tee -a $LOG_FILE
 fi
 
 VALIDATE(){
@@ -31,9 +31,9 @@ VALIDATE(){
 dnf list installed mysql $>>$LOG_FILE
 if [ $? -ne 0 ]
 then 
-    echo " MYSQL isnot installed going to install"
+    echo -e " MYSQL isnot installed going to install"
     dnf install mysql -y
     VALIDATE $? "mysql"
 else
-    echo "Nothing to do $Y mysql is already installed$N"$>>$LOG_FILE
+    echo  -e "Nothing to do $Y mysql is already installed$N"$>>$LOG_FILE
 fi
