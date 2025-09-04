@@ -1,4 +1,4 @@
-USERID = $(id -u)
+USER = $(id -u)
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
@@ -10,7 +10,7 @@ LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
 mkdir -p $LOGS_FOLDER
 echo "Script started at : $(date)" $>>$LOG_FILE
 
-if [ $USERID -ne 0 ]
+if [ $USER-ne 0 ]
 then
     echo -e "$R ERROR:: please run  the script with root access $N"$>>$LOG_FILE
     exit 1
